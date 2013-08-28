@@ -4,24 +4,22 @@ function ArticlesController($scope, $routeParams, $location, Global, Articles) {
     $scope.create = function() {
         var article = new Articles({
             title: this.title,
-            content: this.content
+            content: this.content,
+
         });
         article.$save(function(response) {
             $location.path("articles/" + response._id);
         });
 
-        this.title = "";
+        this.title = "shnur";
         this.content = "";
     };
 
-    $scope.remove = function(article) {
-        article.$remove();
-
-        for (var i in $scope.articles) {
-            if ($scope.articles[i] == article) {
-                $scope.articles.splice(i, 1);
-            }
-        }
+    $scope.remove = function() {
+        var article = $scope.article;
+        article.$remove(function(){
+          $location.path('articles/');
+        })
     };
 
     $scope.update = function() {
